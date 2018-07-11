@@ -28,21 +28,12 @@
       {% if key == 'Ratings' %}
         <td> {{ key }}:
            {% for i in value %}
-            {{ i }}
+            <br>{% for k,v in i.items %}
+              <br>{{ k }}: {{ v }}
+                {% endfor %}
            {% endfor %} 
-
-           <br>
-          <td>1
-            {% for source, rating in value %}
-              {{ source }}
-            <br>
-              {% for i in source %}
-                {{ i }}
-              {% endfor %}
-
-            {% endfor %}
-          </td>
-         <br>
+        </td>
+        <br>
       {% endif %}
       <tr>
         <td> {{ key }}: </td> <td> {{ value }} </td><br>

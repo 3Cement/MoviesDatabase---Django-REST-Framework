@@ -24,8 +24,15 @@ def results(request):
 	m = Movie()
 	if request.GET.get('q') is not None:
 		searchname = request.GET.get('q')
-		movieData = m.getMovieData(searchname)
-		return render(request, 'home.html', {'movieData': movieData, 'search': True})
+		if Movie.objects.filter(title=searchname).exists():
+			print('Wczytuję film z naszej bazy danych!')
+			our_movie = Movie.objects.get(title=searchname)
+			print('Wczytuję film z naszej bazy danych2!')
+			movieData = our_movie.data
+			return render(request, 'home.html', {'movieData': movieData, 'search': True})
+		else:
+			movieData = m.getMovieData(searchname)
+			return render(request, 'home.html', {'movieData': movieData, 'search': True})
 	else:
 		return render(request, 'home.html')
 	print (searchname)

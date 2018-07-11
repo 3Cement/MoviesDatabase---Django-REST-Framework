@@ -12,6 +12,7 @@ class Comment(models.Model):
 class Movie(models.Model):
 	title = models.CharField(max_length=50)
 	comment = models.ManyToManyField(Comment, blank=True)
+	data = models.TextField(max_length=1000, blank=True)
 
 	class Meta:
 		ordering = ('title',)
@@ -28,7 +29,7 @@ class Movie(models.Model):
 		API_KEY = '44c18575'
 		try:
 			request = urllib.request.Request("https://www.omdbapi.com/?t=%s&apikey=44c18575" % title)
-			print('Movie title exist in database.')
+			print('Movie title exist in OMP database.')
 		except Exception:
 			print('Błąd pobrania danych z ompdbapi')
 			sys.exit(1)
@@ -37,6 +38,13 @@ class Movie(models.Model):
 		json_string = response.read().decode('utf-8')
 		
 		self.movieData = json.loads(json_string)
+
+		if Movie.objects.filter(title=self.movieData['Title']).exists():
+			print('There is already movie '+self.movieData['Title']+' in our database')
+		else:
+			new_movie = Movie(title=self.movieData['Title'], data=self.movieData)
+			new_movie.save()
+			print(new_movie.title +' added to our the database!')
 		'''self.movieData = moviedict
 
 		self.movieData['title'] = moviedict['Title']
@@ -53,6 +61,7 @@ class Movie(models.Model):
 
 		self.movieData['response'] = moviedict['Response']'''
 		return self.movieData
+
 
 '''
 	def get_values(self, title):
