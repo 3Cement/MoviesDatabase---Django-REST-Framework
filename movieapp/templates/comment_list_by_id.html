@@ -3,16 +3,17 @@
 {% block content %}
 	<div class="container">
 
-    <h1>Comments List</h1>
+    <h1>Comments for movie: {{ movie }}</h1>
 
     {% if comment_list %}
+
     <ul>
       {% for comment in comment_list %}
-        <p>{{ comment.body }} <a href="{{ comment.movie.get_absolute_url }}">({{ comment.movie }})</a></p>
+        <p>{{ comment.body }}</p>
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no movies in the database.</p>
+      <p>There are no comments for this movie yet.</p>
     {% endif %}     
 
 </div>

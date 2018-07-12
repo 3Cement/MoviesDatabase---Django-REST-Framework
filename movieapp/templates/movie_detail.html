@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Title: {{ movie.title }}</h1>
+    <a href="{% url 'comment_form' %}">Add comment</a> |
+    <a href="{% url 'comment_list_by_id' movie.id %}">Read comments</a></p>
+    {% for key, value in movie.data.items %}
+      {% if key == 'Ratings' %}
+        <td> {{ key }}:
+           {% for i in value %}
+              <li>{% for k,v in i.items %}
+                {{ k }}: {{ v }}
+              {% endfor %}
+           {% endfor %} 
+        </td>
+        <br>
+      {% endif %}
+      <tr>
+        {% if key != 'Ratings' and key != 'Title' and key != 'Year' %}
+        <td> {{ key }}: </td> <td> {{ value }} </td><br>
+        {% endif %}
+      </tr>
+    {% endfor %}
+</div>
+{% endblock %}

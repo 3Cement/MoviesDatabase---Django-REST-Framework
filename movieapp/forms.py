@@ -10,5 +10,4 @@ class CommentForm(ModelForm):
     
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
-        # print(self.request.user)
         super(CommentForm, self).__init__(*args, **kwargs)

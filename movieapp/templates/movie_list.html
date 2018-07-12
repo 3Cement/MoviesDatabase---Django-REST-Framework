@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load static from staticfiles %}
 
 {% block content %}
 	<div class="container">
@@ -9,8 +8,9 @@
     {% if movie_list %}
     <ul>
       {% for movie in movie_list %}
-        <p>{{ movie.title }} ({{ movie.data.Year }})
-        <a href="{% url 'comment_form' %}">Comment movie</a></p>
+        <a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a> ({{ movie.data.Year }}) |
+        <a href="{% url 'comment_form' %}">Add comment</a> |
+        <a href="{% url 'comment_list_by_id' movie.id %}">Read comments</a></p>
       {% endfor %}
     </ul>
     {% else %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 import urllib.request
 import urllib, sys, requests, json
 from urllib.parse import quote
@@ -12,10 +13,14 @@ class Movie(models.Model):
 	class Meta:
 		ordering = ('title',)
 
+	def get_absolute_url(self):
+		return reverse('movie_detail', args=[str(self.id)])
+
 	def __str__(self):
 		return self.title
 
 	def getOMDBdata(self, title):
+		print('Im getting data from server...')
 		title = urllib.parse.quote(title)
 		API_KEY = '44c18575'
 		try:
