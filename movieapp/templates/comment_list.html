@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block content %}
+	<div class="container">
+
+    <h1>Comments List</h1>
+
+    {% if comment_list %}
+    <ul>
+      {% for comment in comment_list %}
+        <p>{{ comment.body }} ({{ comment.movie }})</p>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no movies in the database.</p>
+    {% endif %}     
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block content %}
+	<div class="container">
+
+    <h1>Movies List</h1>
+
+    {% if movie_list %}
+    <ul>
+      {% for movie in movie_list %}
+        <p>{{ movie.title }} ({{ movie.data.Year }})
+        <a href="{% url 'comment_form' %}">Comment movie</a></p>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no movies in the database.</p>
+    {% endif %}     
+
+</div>
+
+{% endblock %}

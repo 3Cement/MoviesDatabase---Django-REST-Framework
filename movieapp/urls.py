@@ -10,11 +10,8 @@ router.register('comments', views.CommentView)
 urlpatterns = [
 	path('api/', include(router.urls)),
     url(r'^$', views.homepage),
+    url(r'^allmovies/', views.allmovies, name='movie_list'),
+    url(r'^allcomments/', views.allcomments, name='comment_list'),
+    url(r'^comment/', views.add_comment, name='comment_form'),
     url(r'^search/', views.results),
-    url(r'^movies/', views.MovieList.as_view()),
 ]
-'''
-urlpatterns = [
-    url(r'^movies/', views.MovieList.as_view()),
-]
-'''

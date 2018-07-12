@@ -19,7 +19,7 @@ class Movie(models.Model):
 		title = urllib.parse.quote(title)
 		API_KEY = '44c18575'
 		try:
-			request = urllib.request.Request("https://www.omdbapi.com/?t=%s&apikey=44c18575" % title)
+			request = urllib.request.Request("https://www.omdbapi.com/?t=%s&apikey=%s" % (title, API_KEY))
 			print('Request data successfull')
 		except Exception:
 			print('Error: Request data unsuccessfull')

@@ -3,11 +3,6 @@
 
 {% block content %}
 	<div class="container">
-<form method="GET" action="/search">
-	<div class="form-group">
-<input class="form-control" type="text" name="searchTitle">
-</div>
-<input type="submit" class="btn btn-default">
 {% if search == True %}
   {% if movieData.Response == "True" %}
     <br>
@@ -16,15 +11,17 @@
       {% if key == 'Ratings' %}
         <td> {{ key }}:
            {% for i in value %}
-            <br>{% for k,v in i.items %}
-              <br>{{ k }}: {{ v }}
-                {% endfor %}
+              <li>{% for k,v in i.items %}
+                {{ k }}: {{ v }}
+              {% endfor %}
            {% endfor %} 
         </td>
         <br>
       {% endif %}
       <tr>
+        {% if key != 'Ratings' and key != 'Title' and key != 'Year' %}
         <td> {{ key }}: </td> <td> {{ value }} </td><br>
+        {% endif %}
       </tr>
     {% endfor %}
 
