@@ -5,6 +5,10 @@ A simple REST API - a basic movie database interacting with external API created
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+### Existing Example
+Existing example is hosted on Heroku and you can check at the following link:
+https://shielded-anchorage-53647.herokuapp.com/
+
 ### Prerequisites
 
 What things you need to install the software and how to install them
