@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="container">
+  <br>
+  <p>Click Existing Movie Base to see what movies we have in our database.</p>
+  <p>Click Comments to see what comments we have according to movies in our database</p>
+  <p>Search for the movie in the top right corner, after type title application will look for your movie in OMDB. If the movie exists in OMDB it will be automatically added to our database.</p>
+
   {% if search == True %}
     {% if movieData.Response == "True" %}
       <br>
