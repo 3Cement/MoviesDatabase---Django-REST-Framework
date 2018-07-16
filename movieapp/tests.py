@@ -2,8 +2,8 @@ import unittest
 from django.test import TestCase, Client
 from rest_framework.test import APIRequestFactory, APIClient, RequestsClient
 
-from .models import Movie, Comment
-from .serializers import MovieSerializer, CommentSerializer
+from movieapp.models import Movie, Comment
+from movieapp.serializers import MovieSerializer, CommentSerializer
 
 # Testing the Comment Model
 class CommentTestCase(TestCase):
