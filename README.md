@@ -9,8 +9,6 @@ These instructions will get you a copy of the project up and running on your loc
 Existing example is hosted on Heroku and you can check at the following link:
 https://shielded-anchorage-53647.herokuapp.com/
 
-The application at the above address is not yet fully operational, there are problems with tables in the database. The application after cloning to the disk and running works.
-
 ### Prerequisites
 
 What things you need to install the software and how to install them
