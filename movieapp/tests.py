@@ -31,7 +31,7 @@ class CommentTestCase(TestCase):
     	Comment.objects.create(body="Amazing movie!", movie=firstMovie)
     	Comment.objects.create(body="The worst movie ever!", movie=secondMovie)
 
-    def test_genres_exist(self):
+    def test_comments_exist(self):
         first = Comment.objects.get(body="Amazing movie!")
         second = Comment.objects.get(body="The worst movie ever!")
         self.assertEqual(first.body, 'Amazing movie!')
@@ -69,7 +69,7 @@ class ViewsTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
 # Testing JSON output
-class JSONTests(TestCase):
+class JSONTestsNoData(TestCase):
 
     #Movies
     def test_get_movies_empty_list(self):
@@ -77,14 +77,28 @@ class JSONTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(str(response.content, encoding='utf8'),[])        
 
-    def test_get_movie_with_no_data(self):
+    def test_get_movie_movie2_and_movies_list_without_comments(self):
         Movie.objects.create(title="Movie1")
-
         response1 = self.client.get('/api/movies/1/')
 
         self.assertEqual(response1.status_code, 200)
         self.assertJSONEqual(str(response1.content, encoding='utf8'),
             {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie1', 'data': None, 'comments': []})
+
+        Movie.objects.create(title="Movie2")
+        response2 = self.client.get('/api/movies/2/')
+
+        self.assertEqual(response1.status_code, 200)
+        self.assertJSONEqual(str(response2.content, encoding='utf8'),
+            {'id': 2, 'url': 'http://testserver/api/movies/2/', 'title': 'Movie2', 'data': None, 'comments': []})
+
+        response3 = self.client.get('/api/movies/')
+
+        self.assertEqual(response1.status_code, 200)
+        self.assertJSONEqual(str(response3.content, encoding='utf8'),[
+            {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie1', 'data': None, 'comments': []},
+            {'id': 2, 'url': 'http://testserver/api/movies/2/', 'title': 'Movie2', 'data': None, 'comments': []}
+            ])
 
     #Comments
     def test_get_comments_empty_list(self):
@@ -99,6 +113,47 @@ class JSONTests(TestCase):
         self.assertJSONEqual(str(response5.content, encoding='utf8'),
             {'id': 1, 'url': 'http://testserver/api/comments/1/', 'body': 'Example comment', 'movie': None})
 
+class JSONTestsWithData(TestCase):
+    def setUp(self):
+        self.someMovie = Movie.objects.create(title='SomeMovie')
+        comment1 = Comment.objects.create(body="Comment1", movie=self.someMovie)
+        self.nextMovie = Movie.objects.create(title='NextMovie')
+        comment2 = Comment.objects.create(body="Comment2", movie=self.nextMovie)
+'''
+    #Movies
+    def test_get_movies_list(self):
+        response = self.client.get('/api/movies/')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+            [
+            {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'SomeMovie', 'data': None, 'comments': ['Comment1']}, 
+            {'id': 2, 'url': 'http://testserver/api/movies/2/', 'title': 'NextMovie', 'data': None, 'comments': ['Comment2']}
+            ]
+            )
+'''
+'''
+    def test_get_movie_with_data(self):
+        Movie.objects.create(title="Movie1")
+
+        response1 = self.client.get('/api/movies/1/')
+
+        self.assertEqual(response1.status_code, 200)
+        self.assertJSONEqual(str(response1.content, encoding='utf8'),
+            {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie1', 'data': None, 'comments': []})
+
+    #Comments
+    def test_get_comments_empty_list(self):
+        response4 = self.client.get('/api/comments/')
+        self.assertEqual(response4.status_code, 200)
+        self.assertJSONEqual(str(response4.content, encoding='utf8'),[])
+
+    def test_get_comment_with_movie(self):
+        response = self.client.get('/api/comments/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+            {'id': 1, 'url': 'http://testserver/api/comments/1/',
+            'body': 'Example comment!', 'movie': 'http://testserver/api/movies/1/'})
+'''
 class TestMoviesJSON_RequestFactory(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
@@ -112,19 +167,19 @@ class TestMoviesJSON_RequestFactory(APITestCase):
                         'Expected Response Code 200, received {0} instead.'
                         .format(response.status_code))
 
-'''
+
     def test_get_movie_with_data(self):
         Movie.objects.create(title="Movie2")
 
-        response2 = self.client.get('/api/movies/2/')
+        response2 = self.client.get('/api/movies/1/')
 
         self.client = APIClient()
-        self.client.post('/api/movies/2', {'id': 2, 'url': 'http://testserver/api/movies/2/', 'title': 'Movie2', 
-            'data': 'Something about movie!', 'comments': []}, format='json')
+        self.client.post('/api/movies/1', {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie2', 
+            'data': 'Something about movie!', 'comments': ['something about movie']}, format='json')
         self.assertEqual(response2.status_code, 200)
         self.assertJSONEqual(str(response2.content, encoding='utf8'),
-            {'id': 2, 'url': 'http://testserver/api/movies/2/', 'title': 'Movie2', 'data': None, 'comments': []})
-'''
+            {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie2', 'data': None, 'comments': []})
+
 '''
 class TestMoviesJSON_Client(APITestCase):
     def setUp(self):
