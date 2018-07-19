@@ -21,6 +21,12 @@ class MovieDetailView(generic.DetailView):
     model = Movie
     template_name = 'movie_detail.html'
 
+    def get_context_data(self, **kwargs):
+    	context = super(MovieDetailView, self).get_context_data(**kwargs)
+    	context['comments_list'] = Comment.objects.all()
+    	return context
+
+
 def homepage(request):
 	return render(request, 'home.html')
 

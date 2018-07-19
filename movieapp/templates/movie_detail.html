@@ -2,6 +2,9 @@
 
 {% block content %}
 <div class="container">
+  Comment: 
+  {{ comments_list }} - Here i need to finish!
+
   <h1>Title: {{ movie.title }}</h1>
     <a href="{% url 'comment_form' %}">Add comment</a> |
     <a href="{% url 'comment_list_by_id' movie.id %}">Read comments</a></p>
@@ -22,5 +25,6 @@
         {% endif %}
       </tr>
     {% endfor %}
+  }
 </div>
 {% endblock %}
