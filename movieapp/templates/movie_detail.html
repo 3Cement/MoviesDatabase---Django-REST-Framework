@@ -2,12 +2,17 @@
 
 {% block content %}
 <div class="container">
-  Comment: 
-  {{ comments_list }} - Here i need to finish!
 
   <h1>Title: {{ movie.title }}</h1>
     <a href="{% url 'comment_form' %}">Add comment</a> |
     <a href="{% url 'comment_list_by_id' movie.id %}">Read comments</a></p>
+    Comments: 
+    {% for comment in comments_list %}
+      {% if comment.movie == movie %}
+        </br> <li> {{ comment }} 
+      {% endif %}
+    {% endfor %}
+  </br>
     {% for key, value in movie.data.items %}
       {% if key == 'Ratings' %}
         <td> {{ key }}:
@@ -25,6 +30,5 @@
         {% endif %}
       </tr>
     {% endfor %}
-  }
 </div>
 {% endblock %}
