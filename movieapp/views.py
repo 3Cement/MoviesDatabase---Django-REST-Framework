@@ -38,7 +38,7 @@ def allcomments(request):
 	comment_list = Comment.objects.all()
 	return render(request, 'comment_list.html', {'comment_list': comment_list})
 
-def comments_by_book_id(request, pk):
+def comments_by_movie_id(request, pk):
 	movie=get_object_or_404(Movie, pk = pk)
 	comment_list = Comment.objects.filter(movie=movie).all()
 	return render(request, 'comment_list_by_id.html', {'comment_list': comment_list, 'movie': movie})
