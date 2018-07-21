@@ -72,6 +72,10 @@ class ViewsTest(unittest.TestCase):
         response = self.client.get('/comment/')
         self.assertEqual(response.status_code, 200)
 
+    def test_search(self):
+        response = self.client.get('/search/')
+        self.assertEqual(response.status_code, 200)  
+
 # Testing JSON output
 class JSONTestsNoMovies(TestCase):
     def test_get_movies_empty_list(self):
