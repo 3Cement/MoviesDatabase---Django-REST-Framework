@@ -18,7 +18,7 @@ What things you need to install the software and how to install them
 2. Clone this repository
 3. Install requirements
 4. Initialize database
-5. Run mylibrary app
+5. Run movies database app
 ```
 
 ### Installing and deployment
@@ -56,7 +56,7 @@ $ python3 manage.py makemigrations
 $ python3 manage.py migrate
 ```
 
-5. Run mylibrary app (in folder with manage.py file):
+5. Run movies database app (in folder with manage.py file):
 
 ```
 $ python manage.py runserver
@@ -66,9 +66,9 @@ $ python manage.py runserver
 
 
 ## Running the tests
-
-
-
+```
+$ python manage.py test
+```
 ## Built With
 
 
