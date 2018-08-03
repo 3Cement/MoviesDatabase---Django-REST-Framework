@@ -140,7 +140,11 @@ class JSONTestsWithData(TestCase):
         self.assertJSONEqual(str(response1.content, encoding='utf8'),
             {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie1', 'data': 'Some example data', 'comments': []})
 
-
+    def test_movie_data2(self):
+        response2 = self.client.get('/api/movies/2/')
+        self.assertEqual(response2.status_code, 200)
+        self.assertJSONEqual(str(response2.content, encoding='utf8'),
+            {'id': 2, 'url': 'http://testserver/api/movies/2/', 'title': 'Movie2', 'data': None, 'comments': []})
 
 
 
