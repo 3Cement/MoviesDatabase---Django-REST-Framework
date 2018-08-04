@@ -175,25 +175,3 @@ class TestMoviesJSON_RequestFactory(APITestCase):
         self.assertEqual(response2.status_code, 200)
         self.assertJSONEqual(str(response2.content, encoding='utf8'),
             {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie2', 'data': None, 'comments': []})
-
-'''
-class TestMoviesJSON_Client(APITestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.view = MovieView.as_view({'get': 'list'})
-        self.uri = '/api/movies/'
-
-    def test_list2(self):
-        response = self.client.get(self.uri)        
-        self.assertEqual(response.status_code, 200,
-                        'Expected Response Code 200, received {0} instead.'
-                        .format(response.status_code))
-
-    def test_create(self):
-        params = {'id': 1, 'url': 'http://testserver/api/movies/1/', 'title': 'Movie1',
-                 'data': 'Some data about movie', 'comments': []}
-        response = self.client.post(self.uri, params)
-        self.assertEqual(response.status_code, 201,
-                        'Expected Response Code 201, received {0} instead.'
-                        .format(response.status_code))
-'''
