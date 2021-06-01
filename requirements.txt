@@ -12,5 +12,5 @@ Pygments==2.2.0
 pytz==2018.5
 requests==2.19.1
 tabulate==0.8.2
-urllib3==1.23
+urllib3==1.26.5
 whitenoise==3.3.1
